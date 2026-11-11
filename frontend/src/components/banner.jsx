@@ -14,7 +14,7 @@ export default function Banner() {
             <h1 className="text-[7px] md:text-2xl font-bold text-gray-700">Hello {user?.username || "Guest"}</h1>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 text-[6.5px] lg:text-sm font-medium md:tracking-widest text-slate-600">
+          <div className="flex flex-wrap items-center gap-2 text-[6px] lg:text-sm font-medium md:tracking-widest text-slate-600">
             <span>NEW SEASON</span>
             <span>•</span>
             <span>NEW STYLES</span>
