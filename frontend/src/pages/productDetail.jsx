@@ -151,22 +151,22 @@ export default function ProductDetail() {
 
   return (
     <div className="min-h-screen bg-gray-50 pt-3 sm:pt-6">
-      <div className="px-3 sm:px-4 md:px-10 lg:px-8">
-        <div className="grid grid-cols-1 gap-5 rounded-2xl bg-white p-3 shadow-sm sm:gap-8 sm:p-6 md:p-8 lg:grid-cols-2 2xl:gap-10 2xl:p-10">
+      <div className="px-3 md:px-4 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-8 lg:gap-10 rounded-2xl bg-white p-3 shadow-sm  sm:p-6 md:p-8 2xl:p-10">
           <div className="flex items-center justify-center rounded-xl bg-gray-50 p-3 sm:p-6">
             <img
               src={product.image}
               alt={product.name}
-              className="h-[260px] w-full max-w-lg rounded-lg object-contain sm:h-[350px] md:h-[450px]"
+              className="h-[260px] w-full max-w-lg rounded-lg object-contain md:h-[300px] lg:h-[450px]"
             />
           </div>
 
-          <section className="flex min-w-0 flex-col gap-4 lg:ml-15">
-            <span className="w-fit rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-600">
+          <section className="flex min-w-0 flex-col gap-3 lg:ml-15">
+            <span className="w-fit rounded-full bg-blue-100 px-3 py-1 text-xs md:text-sm font-medium text-blue-600">
               {product.category?.name || "N/A"}
             </span>
 
-            <h1 className="break-words text-2xl font-bold text-gray-900 md:text-4xl">
+            <h1 className="break-words text-base md:text-xl lg:text-2xl font-bold text-gray-900">
               {product.name}
             </h1>
 
@@ -179,13 +179,13 @@ export default function ProductDetail() {
                 <FaStar className="text-xs" />
               </div>
 
-              <span className="text-sm text-gray-500">Customer Rating</span>
+              <span className="text-xs md:text-sm lg:text-sm text-gray-500">Customer Rating</span>
             </div>
 
-            <div className="flex items-center gap-1">
-              <BiRupee className="text-3xl text-gray-900" />
+            <div className="flex items-center ">
+              <BiRupee className="text-base md:text-xl lg:text-3xl text-gray-900" />
 
-              <span className="text-3xl font-bold text-gray-900">
+              <span className="text-base md:text-xl lg:text-3xl font-bold text-gray-900">
                 {currentPrice}
               </span>
             </div>
@@ -273,14 +273,14 @@ export default function ProductDetail() {
         </div>
 
         {moreProducts.length > 0 && (
-          <section className="mb-4 mt-8 sm:mt-12 sm:ml-2">
-            <div className="mb-6 flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-gray-700 md:text-3xl">
+          <section className=" mt-3 mb-3 md:mt-5 md:mb-5 lg:mb-8 lg:mt-8 sm:ml-2">
+            <div className="mb-3 md:mb-5 lg:mb-6 flex items-center justify-between">
+              <h2 className="text-base md:text-xl lg:text-2xl font-bold text-gray-700 ">
                 More Products
               </h2>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-4 2xl:grid-cols-5 2xl:gap-16">
+            <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 2xl:gap-16">
               {moreProducts.map((item) => (
                 <div
                   key={item._id}
@@ -288,7 +288,7 @@ export default function ProductDetail() {
                     navigate(`/productdetail/${item._id}`);
                     window.scrollTo(0, 0);
                   }}
-                  className="flex min-w-0 cursor-pointer flex-col gap-2 border border-gray-200 px-2 pb-2 pt-3 hover:bg-gray-100 hover:shadow-xl sm:px-4 sm:pt-4 md:w-[270px] 2xl:w-[300px]"
+                  className="flex min-w-0 cursor-pointer flex-col gap-2 border border-gray-200 px-2 pb-2 pt-3 hover:bg-gray-100 hover:shadow-xl sm:px-4 sm:pt-4 md:w-[230px] lg:w-[270px] 2xl:w-[300px]"
                 >
                   <div className="flex justify-center">
                     <img

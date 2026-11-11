@@ -135,14 +135,14 @@ function Products() {
         </h1>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 2xl:grid-cols-5 gap-3 md:gap-0 lg:gap-15 2xl:gap-18">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-3 md:gap-6 lg:gap-15 2xl:gap-18">
         {loading && products.length === 0
           ? Array.from({ length: 15 }).map((_, index) => (
               <ProductSkeleton key={index} />
             ))
           : products.map((product) => (
               <div
-                className="w-full min-w-0 md:w-[280px] 2xl:w-[300px] border border-gray-200 flex flex-col gap-2 hover:bg-gray-100 hover:shadow-xl transition px-2 pt-2 pb-1 md:px-4 md:pt-4 md:pb-2 cursor-pointer"
+                className="w-full min-w-0 md:w-[230px] lg:w-[280px] 2xl:w-[300px] border border-gray-200 flex flex-col gap-2 hover:bg-gray-100 hover:shadow-xl transition px-2 pt-2 pb-1 md:px-4 md:pt-4 md:pb-2 cursor-pointer"
                 key={product._id}
                 onClick={() => {
                   navigate(`/productdetail/${product._id}`);

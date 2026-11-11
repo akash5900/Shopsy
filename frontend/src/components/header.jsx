@@ -89,10 +89,10 @@ export default function Header() {
   return (
     <header className="pt-2">
       <div className="shadow-xs border rounded-2xl border-gray-200 mx-2 md:mx-4 2xl:mx-6 ">
-        <div className="px-2 pb-2 md:px-8 md:py-4 flex flex-wrap items-center justify-between gap-1 md:gap-4 ">
+        <div className="px-2 pb-2 md:px-4 md:py-2 lg:px-8 lg:py-4 flex flex-wrap items-center justify-between gap-1 md:gap-2 lg:gap-4 ">
           <Link to="/" className="flex items-center gap-0.5 md:gap-2 shrink-0">
-            <SiShopify className="text-gray-900 text-sm md:text-3xl" />
-            <h1 className="text-sm md:text-2xl text-gray-900 font-bold">Shopsy</h1>
+            <SiShopify className="text-gray-900 text-sm md:text-2xl lg:text-3xl" />
+            <h1 className="text-sm md:text-xl lg:text-2xl text-gray-900 font-bold">Shopsy</h1>
           </Link>
 
           <div className="relative order-3 md:order-none w-full md:flex-1 w-[100px] md:max-w-[500px] md:mx-6">
@@ -114,7 +114,7 @@ export default function Header() {
                   setShowSuggestions(false);
                 }
               }}
-              className="w-full bg-gray-50 border border-gray-300 rounded-lg py-1 md:py-2.5 pl-9 pr-3 text-xs md:text-sm outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-200"
+              className="w-full bg-gray-50 border border-gray-300 rounded-lg py-1 md:py-1.5 lg:py-2.5 pl-9 pr-3 text-xs md:text-sm outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-200"
             />
 
             {showSuggestions && search.trim() && (
@@ -154,14 +154,14 @@ export default function Header() {
             )}
           </div>
 
-          <nav className="flex items-center gap-1 md:gap-6 text-gray-900">
+          <nav className="flex items-center gap-1 md:gap-4 lg:gap-6 text-gray-900">
             <Link
               to="/cart"
               onClick={window.scroll(0, 0)}
               className="flex items-center gap-1 hover:text-blue-600 mr-1"
             >
               <IoMdCart className="mt-1 text-sm md:text-2xl" />
-              <span className="font-semibold text-sm mt-1 hidden md:block">Cart</span>
+              <span className="font-semibold text-sm mt-1 hidden md:hidden lg:block">Cart</span>
               {totalItems !== 0 ? (<span className="text-blue-800">{totalItems}</span>) : (<span></span>)}
             </Link>
 
@@ -171,7 +171,7 @@ export default function Header() {
               className="flex items-center gap-1 hover:text-green-600"
             >
               <IoBagHandle className="text-sm md:text-2xl mt-0.5 md:mt-0" />
-              <span className="font-semibold text-sm mt-1 hidden md:block">Orders</span>
+              <span className="font-semibold text-sm mt-1 hidden md:hidden lg:block">Orders</span>
             </Link>
 
             {!loading &&
