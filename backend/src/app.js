@@ -4,6 +4,7 @@ import categoryRouter from "./routes/categoryRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
 import addressRouter from "./routes/addressRoutes.js";
+import wishlistRouter from "./routes/wishlistRoutes.js";
 import cartRouter from "./routes/cartRoutes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -24,5 +25,6 @@ app.use("/api/user", userRouter);
 app.use("/api/order", orderRouter);
 app.use("/api/address", addressRouter);
 app.use("/api/cart", cartRouter);
+app.use("/api/wishlist", wishlistRouter);
 
 export default app;

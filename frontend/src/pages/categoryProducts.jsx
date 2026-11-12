@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { BiRupee } from "react-icons/bi";
-import { FaStar } from "react-icons/fa";
+import { FaStar, FaHeart } from "react-icons/fa";
+import useWishlist from "../context/useWishlist";
 import { FaArrowRotateLeft } from "react-icons/fa6";
 import ProductsFilters from "../components/productsFilters";
 
@@ -27,6 +28,7 @@ function ProductSkeleton() {
 
 function Categoryproducts() {
   const navigate = useNavigate();
+  const { toggleWishlist, isWishlisted } = useWishlist();
   const { id } = useParams();
   const [searchParams] = useSearchParams();
 
@@ -103,7 +105,7 @@ function Categoryproducts() {
         </button>
       </div>
 
-      <div className="px-3 md:px-4 2xl:px-8 grid grid-cols-2 md:grid-cols-4 2xl:grid-cols-5 gap-3 md:gap-8 2xl:gap-18">
+      <div className="px-3 md:px-4 2xl:px-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-3 gap-6 lg:gap-8 2xl:gap-18">
         {loading ? (
           Array.from({ length: 15 }).map((_, index) => (
             <ProductSkeleton key={index} />
@@ -111,15 +113,26 @@ function Categoryproducts() {
         ) : products.length > 0 ? (
           products.map((product) => (
             <div
-              className="w-full min-w-0 md:w-[280px] 2xl:w-[300px] cursor-pointer border border-gray-200 flex flex-col gap-2 hover:bg-gray-100 hover:shadow-xl p-2 md:p-4"
+              className="relative w-full min-w-0 md:w-[230px] lg:w-[280px] 2xl:w-[300px] cursor-pointer border border-gray-200 flex flex-col gap-2 hover:bg-gray-100 hover:shadow-xl p-2 md:p-4"
               key={product._id}
               onClick={() => navigate(`/productdetail/${product._id}`)}
             >
+              <button
+                type="button"
+                aria-label={isWishlisted(product._id) ? "Remove from wishlist" : "Add to wishlist"}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  toggleWishlist(product._id);
+                }}
+                className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-md transition hover:scale-110"
+              >
+                <FaHeart className={isWishlisted(product._id) ? "text-red-500" : "text-gray-400"} />
+              </button>
               <div className="flex justify-center">
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="h-[110px] sm:h-[130px] md:h-[150px] 2xl:h-[210px] w-full object-cover rounded"
+                  className="h-[110px] sm:h-[130px] md:h-[150px] 2xl:h-[210px] w-full object-contain rounded"
                 />
               </div>
 

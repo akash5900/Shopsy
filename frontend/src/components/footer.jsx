@@ -18,7 +18,7 @@ export default function Footer() {
             <h1 className="text-sm md:text-xl 2xl:text-2xl">Shopsy</h1>
           </div>
 
-          <p className="text-xs md:text-base leading-relaxed">
+          <p className="text-xs md:text-sm lg:text-base leading-relaxed">
             Your one-stop destination for quality products at great prices.
             <br />
             Shop smarter, live better.
@@ -47,7 +47,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <section className="grid grid-cols-2 lg:grid-cols-4 gap-x-40 gap-y-5 md:gap-18 2xl:gap-18 py-3 md:py-0">
+        <section className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-x-40 gap-y-5 md:gap-10 lg:gap-18 2xl:gap-18 py-3 md:py-0">
           <div className="flex flex-col gap-2 md:gap-2">
             <h1 className="text-sm md:text-base 2xl:text-lg">Quick Links</h1>
 

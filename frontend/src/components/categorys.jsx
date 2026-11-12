@@ -22,7 +22,7 @@ export default function Category() {
   }, []);
 
   return (
-    <div className="p-2 md:px-8 md:py-4 border-t border-gray-200 ">
+    <div className="p-2 md:px-4 md:py-3 lg:px-8 lg:py-4 border-t border-gray-200 ">
       <div className="flex overflow-x-auto scrollbar-none">
         {category.map((cat) => (
           <div

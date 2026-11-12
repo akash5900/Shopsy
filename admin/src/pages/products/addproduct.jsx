@@ -10,6 +10,7 @@ function Addproducts() {
     description: "",
     category: "",
     image: "",
+    images: [""],
     ratings: "",
     variants: [],
   });
@@ -19,6 +20,7 @@ function Addproducts() {
     price: "",
     color: "",
     stock: "",
+    image: "",
   });
 
   const [category, setCategory] = useState([]);
@@ -37,6 +39,24 @@ function Addproducts() {
     getCategory();
   }, []);
 
+  function handleGalleryImageChange(index, value) {
+    setFormdata((prev) => ({
+      ...prev,
+      images: prev.images.map((url, i) => (i === index ? value : url)),
+    }));
+  }
+
+  function addGalleryImage() {
+    setFormdata((prev) => ({ ...prev, images: [...prev.images, ""] }));
+  }
+
+  function removeGalleryImage(index) {
+    setFormdata((prev) => ({
+      ...prev,
+      images: prev.images.filter((_, i) => i !== index),
+    }));
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -46,7 +66,7 @@ function Addproducts() {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formdata),
+          body: JSON.stringify({ ...formdata, images: formdata.images.filter((url) => url.trim()) }),
         },
       );
 
@@ -83,6 +103,7 @@ function Addproducts() {
       price: "",
       color: "",
       stock: "",
+      image: "",
     });
   }
 
@@ -162,8 +183,20 @@ function Addproducts() {
             placeholder="Enter imageURL"
             className="w-full  bg-white border border-gray-400  rounded-lg p-2 "
           />
+          <div className="w-full rounded-lg border border-gray-300 p-3">
+            <h2 className="mb-2 font-semibold">Additional Product Images</h2>
+            <p className="mb-3 text-xs text-gray-500">Add different image URLs for other product angles.</p>
+            {formdata.images.map((url, index) => (
+              <div key={index} className="mb-2 flex gap-2">
+                <input type="url" value={url} onChange={(e) => handleGalleryImageChange(index, e.target.value)} placeholder={`Additional image URL ${index + 1}`} className="min-w-0 flex-1 rounded-lg border border-gray-400 bg-white p-2" />
+                <button type="button" onClick={() => removeGalleryImage(index)} className="rounded border px-3 text-red-600">Remove</button>
+              </div>
+            ))}
+            <button type="button" onClick={addGalleryImage} className="rounded border border-blue-500 bg-blue-50 px-3 py-2 text-sm">+ Add image</button>
+          </div>
           <div className="w-full border border-gray-300 rounded-lg p-3">
             <h1 className="font-semibold mb-3">Variants</h1>
+            <p className="mb-3 text-xs text-gray-500">Add one entry for every color and size combination, for example Black / S, Black / M, Blue / S.</p>
 
             <div className="flex flex-col gap-3">
               <input
@@ -201,6 +234,18 @@ function Addproducts() {
                 placeholder="Stock"
                 className="w-full bg-white border border-gray-400 rounded-lg p-2"
               />
+
+              <select
+                name="image"
+                value={variant.image}
+                onChange={handleVariantChange}
+                className="w-full bg-white border border-gray-400 rounded-lg p-2"
+              >
+                <option value="">Use matching gallery image by order</option>
+                {[...new Set([formdata.image, ...formdata.images].filter(Boolean))].map((url, index) => (
+                  <option key={`${url}-${index}`} value={url}>Product image {index + 1}</option>
+                ))}
+              </select>
 
               <button
                 type="button"

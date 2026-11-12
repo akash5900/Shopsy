@@ -85,6 +85,17 @@ export async function getCart(req, res) {
         (v) => String(v._id) === String(cartItem.variant),
       );
 
+      if (selectedVariant) {
+        const variantIndex = variants.findIndex(
+          (v) => String(v._id) === String(selectedVariant._id),
+        );
+        selectedVariant.image =
+          selectedVariant.image ||
+          cartItem.product?.images?.[variantIndex] ||
+          cartItem.product?.image ||
+          "";
+      }
+
       cartItem.variant = selectedVariant || null;
 
       return cartItem;
