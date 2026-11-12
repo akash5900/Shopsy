@@ -31,8 +31,8 @@ export default function Banner() {
             </h2>
 
             <p className="max-w-lg text-[8px] md:text-base md:leading-6 text-slate-600">
-              Trendy fashion, latest gadgets, home essentials and more. Shop
-              smarter, live better.
+              Trendy fashion, latest gadgets, home essentials and more. 
+              Shop smarter, live better.
             </p>
 
             <Link
