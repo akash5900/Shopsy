@@ -135,7 +135,7 @@ export default function Allproducts() {
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-16 h-14 md:w-20 2xl:w-25 md:h-15 2xl:h-18 object-cover rounded my-4 ml-2"
+                    className="w-16 h-14 md:w-20 2xl:w-25 md:h-15 2xl:h-18 object-contain rounded my-4 ml-2"
                   />
                 </td>
 

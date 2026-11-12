@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FaSearch, FaFilter } from "react-icons/fa";
+import { FaSearch, FaFilter, FaHeart } from "react-icons/fa";
 import { Link, useSearchParams } from "react-router-dom";
 import { BsPersonCircle } from "react-icons/bs";
 import { IoMdCart } from "react-icons/io";
@@ -7,11 +7,13 @@ import { IoBagHandle } from "react-icons/io5";
 import { SiShopify } from "react-icons/si";
 import useAuth from "../context/useAuth";
 import useCart from "../context/useCart";
+import useWishlist from "../context/useWishlist";
 import Category from "../components/categorys";
 
 export default function Header() {
   const { user, loading } = useAuth();
   const { totalItems } = useCart();
+  const { wishlistCount } = useWishlist();
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState(searchParams.get("search") || "");
   const [suggestion, setSuggestion] = useState([]);
@@ -154,15 +156,26 @@ export default function Header() {
             )}
           </div>
 
-          <nav className="flex items-center gap-1 md:gap-4 lg:gap-6 text-gray-900">
+          <nav className="flex items-center gap-1 md:gap-4 lg:gap-5 text-gray-900">
             <Link
               to="/cart"
               onClick={window.scroll(0, 0)}
               className="flex items-center gap-1 hover:text-blue-600 mr-1"
             >
               <IoMdCart className="mt-1 text-sm md:text-2xl" />
-              <span className="font-semibold text-sm mt-1 hidden md:hidden lg:block">Cart</span>
               {totalItems !== 0 ? (<span className="text-blue-800">{totalItems}</span>) : (<span></span>)}
+            </Link>
+
+            <Link
+              to="/wishlist"
+              onClick={() => window.scrollTo(0, 0)}
+              aria-label="Wishlist"
+              className="relative flex items-center gap-1 hover:text-red-500 mr-1"
+            >
+              <FaHeart className="mt-1 text-sm md:text-xl" />
+              {wishlistCount > 0 && (
+                <span className="text-blue-800 text-xs md:text-sm">{wishlistCount}</span>
+              )}
             </Link>
 
             <Link
@@ -170,8 +183,7 @@ export default function Header() {
               onClick={window.scroll(0, 0)}
               className="flex items-center gap-1 hover:text-green-600"
             >
-              <IoBagHandle className="text-sm md:text-2xl mt-0.5 md:mt-0" />
-              <span className="font-semibold text-sm mt-1 hidden md:hidden lg:block">Orders</span>
+              <IoBagHandle className="text-sm md:text-2xl mt-0.5 " />
             </Link>
 
             {!loading &&
@@ -179,9 +191,9 @@ export default function Header() {
                 <Link
                   to="/profile"
                   onClick={window.scroll(0, 0)}
-                  className="flex items-center gap-1 md:gap-2 rounded-lg px-3 py-2 hover:text-red-500 "
+                  className="flex items-center gap-1 md:gap-2 rounded-lg px-3 py-2 hover:text-orange-600 "
                 >
-                  <BsPersonCircle className="text-sm md:text-2xl mt-1 md:mt-0" />
+                  <BsPersonCircle className="text-sm md:text-2xl mt-1 md:mt-1" />
                   <span className="font-semibold text-sm mt-1">
                     {user.username}
                   </span>

@@ -11,6 +11,7 @@ function Updateproduct() {
     description: "",
     category: "",
     image: "",
+    images: [],
     ratings: "",
     variants: [],
   });
@@ -20,6 +21,7 @@ function Updateproduct() {
     price: "",
     color: "",
     stock: "",
+    image: "",
   });
 
   const [category, setCategory] = useState([]);
@@ -69,15 +71,37 @@ function Updateproduct() {
             : product.category || "",
 
         image: product.image || "",
+        images: Array.isArray(product.images) ? product.images : [],
         ratings: product.ratings ?? "",
 
         variants: Array.isArray(product.variants)
-          ? product.variants
+          ? product.variants.map((item, index) => ({
+            ...item,
+            image: item.image || [product.image, ...(product.images || [])][index] || "",
+          }))
           : [],
       });
     } catch (error) {
       console.log(error);
     }
+  }
+
+  function handleGalleryImageChange(index, value) {
+    setFormdata((prev) => ({
+      ...prev,
+      images: prev.images.map((url, i) => (i === index ? value : url)),
+    }));
+  }
+
+  function addGalleryImage() {
+    setFormdata((prev) => ({ ...prev, images: [...prev.images, ""] }));
+  }
+
+  function removeGalleryImage(index) {
+    setFormdata((prev) => ({
+      ...prev,
+      images: prev.images.filter((_, i) => i !== index),
+    }));
   }
 
   useEffect(() => {
@@ -98,6 +122,7 @@ function Updateproduct() {
           },
           body: JSON.stringify({
             ...formdata,
+            images: formdata.images.filter((url) => url.trim()),
             price: Number(formdata.price),
             ratings: Number(formdata.ratings),
 
@@ -107,6 +132,7 @@ function Updateproduct() {
               price: Number(item.price),
               color: item.color,
               stock: Number(item.stock),
+              image: item.image || "",
             })),
           }),
         }
@@ -161,6 +187,7 @@ function Updateproduct() {
       price: Number(variant.price),
       color: variant.color.trim(),
       stock: Number(variant.stock),
+      image: variant.image || "",
     };
 
     setFormdata((prev) => ({
@@ -173,6 +200,7 @@ function Updateproduct() {
       price: "",
       color: "",
       stock: "",
+      image: "",
     });
   }
 
@@ -252,6 +280,24 @@ function Updateproduct() {
             className="w-full bg-white border border-gray-400 rounded-lg p-2"
           />
 
+          <div className="w-full rounded-lg border border-gray-300 p-3">
+            <h2 className="mb-2 font-semibold">Additional Product Images</h2>
+            <p className="mb-3 text-xs text-gray-500">Add or remove product gallery image URLs.</p>
+            {formdata.images.map((url, index) => (
+              <div key={index} className="mb-2 flex gap-2">
+                <input
+                  type="url"
+                  value={url}
+                  onChange={(e) => handleGalleryImageChange(index, e.target.value)}
+                  placeholder={`Additional image URL ${index + 1}`}
+                  className="min-w-0 flex-1 rounded-lg border border-gray-400 bg-white p-2"
+                />
+                <button type="button" onClick={() => removeGalleryImage(index)} className="rounded border px-3 text-red-600">Remove</button>
+              </div>
+            ))}
+            <button type="button" onClick={addGalleryImage} className="rounded border border-blue-500 bg-blue-50 px-3 py-2 text-sm">+ Add image</button>
+          </div>
+
           <input
             type="number"
             name="ratings"
@@ -269,6 +315,7 @@ function Updateproduct() {
             <h1 className="font-semibold mb-3">
               Variants
             </h1>
+            <p className="mb-3 text-xs text-gray-500">Add one entry for every color and size combination, for example Black / S, Black / M, Blue / S.</p>
 
             <div className="flex flex-col gap-3">
               <input
@@ -288,7 +335,7 @@ function Updateproduct() {
                 placeholder="Variant price"
                 className="w-full bg-white border border-gray-400 rounded-lg p-2"
               />
- 
+
               <input
                 type="text"
                 name="color"
@@ -307,6 +354,18 @@ function Updateproduct() {
                 min="0"
                 className="w-full bg-white border border-gray-400 rounded-lg p-2"
               />
+
+              <select
+                name="image"
+                value={variant.image}
+                onChange={handleVariantChange}
+                className="w-full bg-white border border-gray-400 rounded-lg p-2"
+              >
+                <option value="">Use matching gallery image by order</option>
+                {[...new Set([formdata.image, ...formdata.images].filter(Boolean))].map((url, index) => (
+                  <option key={`${url}-${index}`} value={url}>Product image {index + 1}</option>
+                ))}
+              </select>
 
               <button
                 type="button"
@@ -331,6 +390,24 @@ function Updateproduct() {
                     <p className="text-sm text-gray-600">
                       ₹{item.price} | Stock: {item.stock}
                     </p>
+                    <select
+                      value={item.image || ""}
+                      onChange={(e) =>
+                        setFormdata((prev) => ({
+                          ...prev,
+                          variants: prev.variants.map((variant, i) =>
+                            i === index ? { ...variant, image: e.target.value } : variant,
+                          ),
+                        }))
+                      }
+                      className="mt-2 w-full rounded border border-gray-300 bg-white p-2 text-sm"
+                    >
+                      <option value="">Use gallery image by variant order</option>
+                      {[...new Set([formdata.image, ...formdata.images].filter(Boolean))].map((url, imageIndex) => (
+                        <option key={`${url}-${imageIndex}`} value={url}>Product image {imageIndex + 1}</option>
+                      ))}
+                    </select>
+                    {item.image && <img src={item.image} alt={`${item.color} variant`} className="mt-2 h-12 w-12 rounded object-contain bg-white" />}
                   </div>
 
                   <button

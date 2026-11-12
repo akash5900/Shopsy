@@ -18,6 +18,11 @@ const variantSchema = new mongoose.Schema({
         required: true,
         min: 0,
     },
+    image: {
+        type: String,
+        default: "",
+        trim: true,
+    },
 })
 
 const productSchema = new mongoose.Schema({
@@ -40,6 +45,10 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true
+    },
+    images: {
+        type: [String],
+        default: []
     },
     category: {
         type: mongoose.Schema.Types.ObjectId,

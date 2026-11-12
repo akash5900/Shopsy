@@ -13,6 +13,7 @@ import Header from "./components/header";
 import Footer from "./components/footer";
 import EditProfile from "./pages/editProfile";
 import Auth from "./pages/auth";
+import Wishlist from "./pages/wishList";
 
 function AppContent() {
   const location = useLocation();
@@ -41,6 +42,7 @@ function AppContent() {
         <Route path="/categoryproducts/:id" element={<Categoryproducts />} />
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/wishlist" element={<Wishlist />} />
       </Routes>
 
       {!hideLayout &&

@@ -72,7 +72,7 @@ export default function Banner() {
           <img
             src="/images/shopsy-products.png"
             alt="Fashion accessories, sneakers, headphones and electronics"
-            className="w-full h-auto md:max-h-[420px] object-contain 2xl:ml-[250px]"
+            className="w-full h-auto lg:max-h-[430px] object-contain 2xl:ml-[250px]"
           />
         </div>
       </div>

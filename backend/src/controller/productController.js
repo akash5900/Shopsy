@@ -9,6 +9,7 @@ export async function createProduct(req, res) {
       description,
       category = "Product",
       image,
+      images = [],
       ratings,
     } = req.body;
 
@@ -48,6 +49,9 @@ export async function createProduct(req, res) {
       });
     }
 
+    const parsedImages = Array.isArray(images) ? images : [];
+    const galleryImages = [...new Set([image.trim(), ...parsedImages.map((url) => String(url).trim()).filter(Boolean)])];
+
     const variants = req.body.variants || "[]";
 
     const product = await productModel.create({
@@ -55,7 +59,8 @@ export async function createProduct(req, res) {
       price,
       description,
       category,
-      image,
+      image: image.trim(),
+      images: galleryImages,
       variants,
       ratings,
     });
@@ -212,7 +217,7 @@ export async function getProductsByCategory(req, res) {
         $gte: min,
       };
     }
-    
+
     if (maxPrice !== undefined && maxPrice !== "") {
       const max = Number(maxPrice);
 
@@ -260,7 +265,7 @@ export async function updateProduct(req, res) {
   try {
     const { id } = req.params;
 
-    const { name, price, description, category, image, ratings, variants } =
+    const { name, price, description, category, image, images = [], ratings, variants } =
       req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -315,6 +320,7 @@ export async function updateProduct(req, res) {
       description: description.trim(),
       category,
       image: image.trim(),
+      images: [...new Set([image.trim(), ...(Array.isArray(images) ? images : []).map((url) => String(url).trim()).filter(Boolean)])],
     };
 
     if (ratings !== undefined) {
@@ -342,9 +348,9 @@ export async function updateProduct(req, res) {
 
         return existingVariant
           ? {
-              ...variant,
-              _id: existingVariant._id,
-            }
+            ...variant,
+            _id: existingVariant._id,
+          }
           : variant;
       });
     }

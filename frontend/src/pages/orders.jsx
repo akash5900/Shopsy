@@ -153,15 +153,14 @@ export default function Order() {
                   </div>
 
                   <span
-                    className={`w-fit shrink-0 rounded-full px-3 py-1.5 text-sm font-medium ${
-                      order.orderStatus === "Delivered"
-                        ? "bg-green-50 text-green-700"
-                        : order.orderStatus === "Cancelled"
-                          ? "bg-red-50 text-red-700"
-                          : order.orderStatus === "Shipped"
-                            ? "bg-blue-50 text-blue-700"
-                            : "bg-yellow-50 text-yellow-700"
-                    }`}
+                    className={`w-fit shrink-0 rounded-full px-3 py-1.5 text-sm font-medium ${order.orderStatus === "Delivered"
+                      ? "bg-green-50 text-green-700"
+                      : order.orderStatus === "Cancelled"
+                        ? "bg-red-50 text-red-700"
+                        : order.orderStatus === "Shipped"
+                          ? "bg-blue-50 text-blue-700"
+                          : "bg-yellow-50 text-yellow-700"
+                      }`}
                   >
                     {order.orderStatus}
                   </span>
@@ -175,9 +174,18 @@ export default function Order() {
                     className="flex gap-3 p-3 sm:gap-4 sm:p-6"
                   >
                     <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-gray-100 sm:h-24 sm:w-24">
-                      {item.product?.image ? (
+                      {(
+                        item.selectedImage ||
+                        item.variant?.image ||
+                        item.image ||
+                        item.product?.image
+                      ) ? (
                         <img
-                          src={item.product.image}
+                          src={
+                            item.selectedImage ||
+                            item.variant?.image ||
+                            item.product?.image
+                          }
                           alt={item.product.name}
                           className="h-full w-full object-contain"
                         />
@@ -222,27 +230,27 @@ export default function Order() {
 
                         {(item.orderStatus || order.orderStatus) ===
                           "Placed" && (
-                          <button
-                            onClick={() =>
-                              cancelOrder(order._id, item.product._id)
-                            }
-                            className="mt-2 cursor-pointer rounded border border-red-200 px-2 py-1 text-sm text-red-500 sm:mt-4"
-                          >
-                            Cancel Order
-                          </button>
-                        )}
+                            <button
+                              onClick={() =>
+                                cancelOrder(order._id, item.product._id)
+                              }
+                              className="mt-2 cursor-pointer rounded border border-red-200 px-2 py-1 text-sm text-red-500 sm:mt-4"
+                            >
+                              Cancel Order
+                            </button>
+                          )}
 
                         {(item.orderStatus || order.orderStatus) ===
                           "Cancelled" && (
-                          <button
-                            onClick={() =>
-                              handleDelete(order._id, item.product._id)
-                            }
-                            className="mt-2 cursor-pointer rounded border border-red-200 px-2 py-1 text-sm text-red-500 sm:mt-4"
-                          >
-                            Delete Order
-                          </button>
-                        )}
+                            <button
+                              onClick={() =>
+                                handleDelete(order._id, item.product._id)
+                              }
+                              className="mt-2 cursor-pointer rounded border border-red-200 px-2 py-1 text-sm text-red-500 sm:mt-4"
+                            >
+                              Delete Order
+                            </button>
+                          )}
                       </div>
                     </div>
                   </div>
@@ -284,13 +292,12 @@ export default function Order() {
                     <p className="text-sm text-gray-500">Payment Status</p>
 
                     <p
-                      className={`mt-1 font-medium ${
-                        order.paymentstatus === "Paid"
-                          ? "text-green-600"
-                          : order.paymentstatus === "Cancelled"
-                            ? "text-red-600"
-                            : "text-yellow-600"
-                      }`}
+                      className={`mt-1 font-medium ${order.paymentstatus === "Paid"
+                        ? "text-green-600"
+                        : order.paymentstatus === "Cancelled"
+                          ? "text-red-600"
+                          : "text-yellow-600"
+                        }`}
                     >
                       {order.paymentstatus}
                     </p>
