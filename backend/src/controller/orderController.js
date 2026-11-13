@@ -17,7 +17,9 @@ async function prepareOrderProducts(items) {
     if (!Number.isInteger(quantity) || quantity < 1) throw new Error("Invalid product quantity");
 
     let variantSnapshot = undefined;
+
     let price = Number(product.price);
+
     if (item.variant?._id || item.variant) {
       const variantId = item.variant?._id || item.variant;
       const variant = product.variants.id(variantId);
@@ -54,8 +56,11 @@ function getAddress(address) {
 export async function createOrder(req, res) {
   try {
     const products = await prepareOrderProducts(req.body.products);
+
     const address = getAddress(req.body.address);
+
     const totalamount = products.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
     const order = await orderModel.create({
       user: req.user.id,
       products,
@@ -64,25 +69,31 @@ export async function createOrder(req, res) {
       paymentmethod: "COD",
       paymentstatus: "Pending",
     });
+
     await cartModel.deleteMany({ user: req.user.id });
+
     return res.status(201).json({ message: "Order Placed", order });
   } catch (error) {
     return res.status(400).json({ message: error.message || "Failed to place order" });
   }
 }
 
-
 export async function createRazorpayOrder(req, res) {
   try {
     const keyId = process.env.RAZORPAY_KEY_ID;
+
     const keySecret = process.env.RAZORPAY_KEY_SECRET;
+
     if (!keyId || !keySecret) {
       return res.status(500).json({ message: "Razorpay test keys are not configured in backend/.env" });
     }
 
     const products = await prepareOrderProducts(req.body.products);
+
     const address = getAddress(req.body.address);
+
     const totalamount = products.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
     const razorpayResponse = await fetch("https://api.razorpay.com/v1/orders", {
       method: "POST",
       headers: {
@@ -96,7 +107,9 @@ export async function createRazorpayOrder(req, res) {
         notes: { userId: String(req.user.id) },
       }),
     });
+
     const razorpayOrder = await razorpayResponse.json();
+
     if (!razorpayResponse.ok) {
       return res.status(razorpayResponse.status).json({ message: razorpayOrder.error?.description || "Unable to create Razorpay order" });
     }
@@ -117,9 +130,13 @@ export async function createRazorpayOrder(req, res) {
 export async function verifyRazorpayPayment(req, res) {
   try {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature, products, address } = req.body;
+
     const keyId = process.env.RAZORPAY_KEY_ID;
+
     const keySecret = process.env.RAZORPAY_KEY_SECRET;
+
     if (!keyId || !keySecret) return res.status(500).json({ message: "Razorpay keys are not configured" });
+
     if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
       return res.status(400).json({ message: "Payment verification details are missing" });
     }
@@ -128,32 +145,42 @@ export async function verifyRazorpayPayment(req, res) {
       .createHmac("sha256", keySecret)
       .update(`${razorpay_order_id}|${razorpay_payment_id}`)
       .digest("hex");
+
     const expected = Buffer.from(expectedSignature, "hex");
+
     const received = Buffer.from(razorpay_signature, "hex");
+
     if (expected.length !== received.length || !crypto.timingSafeEqual(expected, received)) {
       return res.status(400).json({ message: "Payment verification failed" });
     }
 
     const authHeader = `Basic ${Buffer.from(`${keyId}:${keySecret}`).toString("base64")}`;
+
     const [gatewayOrderResponse, paymentResponse] = await Promise.all([
       fetch(`https://api.razorpay.com/v1/orders/${razorpay_order_id}`, { headers: { Authorization: authHeader } }),
       fetch(`https://api.razorpay.com/v1/payments/${razorpay_payment_id}`, { headers: { Authorization: authHeader } }),
     ]);
+
     const gatewayOrder = await gatewayOrderResponse.json();
+
     const payment = await paymentResponse.json();
+    
     if (!gatewayOrderResponse.ok || !paymentResponse.ok ||
       gatewayOrder.notes?.userId !== String(req.user.id) ||
       payment.order_id !== razorpay_order_id || payment.status !== "captured") {
       return res.status(400).json({ message: "Razorpay payment could not be confirmed" });
     }
+
     if (await orderModel.findOne({ razorpayPaymentId: razorpay_payment_id })) {
       return res.status(409).json({ message: "This payment has already been used for an order" });
     }
 
-    // Re-fetch product prices and stock rather than trusting values sent by the browser.
     const verifiedProducts = await prepareOrderProducts(products);
+
     const verifiedAddress = getAddress(address);
+
     const totalamount = verifiedProducts.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
     if (Number(payment.amount) !== Math.round(totalamount * 100) || Number(gatewayOrder.amount) !== Math.round(totalamount * 100)) {
       return res.status(400).json({ message: "Paid amount does not match the order total" });
     }
@@ -167,7 +194,9 @@ export async function verifyRazorpayPayment(req, res) {
       razorpayOrderId: razorpay_order_id,
       razorpayPaymentId: razorpay_payment_id,
     });
+
     await cartModel.deleteMany({ user: req.user.id });
+    
     return res.status(201).json({ message: "Payment successful and order placed", order });
   } catch (error) {
     return res.status(400).json({ message: error.message || "Payment verification failed" });
