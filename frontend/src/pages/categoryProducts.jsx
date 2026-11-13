@@ -105,7 +105,7 @@ function Categoryproducts() {
         </button>
       </div>
 
-      <div className="px-3 md:px-4 2xl:px-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-3 gap-6 lg:gap-8 2xl:gap-18">
+      <div className="px-3 md:px-4 2xl:px-8 grid grid-cols-2 md:grid-cols-3  lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 md:gap-6 lg:gap-x-17 lg:gap-y-10 xl:gap-12 2xl:gap-18">
         {loading ? (
           Array.from({ length: 15 }).map((_, index) => (
             <ProductSkeleton key={index} />
@@ -113,7 +113,7 @@ function Categoryproducts() {
         ) : products.length > 0 ? (
           products.map((product) => (
             <div
-              className="relative w-full min-w-0 md:w-[230px] lg:w-[280px] 2xl:w-[300px] cursor-pointer border border-gray-200 flex flex-col gap-2 hover:bg-gray-100 hover:shadow-xl p-2 md:p-4"
+              className="relative w-full min-w-0 md:w-[230px] lg:w-[270px] xl:w-[280px] 2xl:w-[300px] cursor-pointer border border-gray-200 flex flex-col gap-2 hover:bg-gray-100 hover:shadow-xl p-2 md:p-4"
               key={product._id}
               onClick={() => navigate(`/productdetail/${product._id}`)}
             >

@@ -117,7 +117,6 @@ export default function ProductDetail() {
     ? [...new Set([product.image, ...(Array.isArray(product.images) ? product.images : [])].filter(Boolean))]
     : [];
 
-  // Group the existing color + size combinations into separate selectors.
   const colorOptions = [...new Map(
     variants.map((variant) => [String(variant.color || "").trim().toLowerCase(), variant])
   ).values()];
@@ -158,8 +157,6 @@ export default function ProductDetail() {
     }
   }
 
-  // Older products may not have variant.image saved yet. For those products,
-  // use the image in the same position as the variant as a backward-compatible fallback.
   function getVariantImage(variant) {
     if (!variant) return product?.image || "";
     const variantIndex = variants.findIndex(
@@ -247,7 +244,6 @@ export default function ProductDetail() {
                     type="button"
                     onClick={() => {
                       setActiveImage(imageUrl);
-                      // Selecting a variant image also selects its matching variant.
                       const matchingVariant = variants.find(
                         (variant) => getVariantImage(variant) === imageUrl,
                       );
@@ -436,7 +432,7 @@ export default function ProductDetail() {
               </h2>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 2xl:gap-16">
+            <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 lg:gap-x-17 lg:gap-y-10 xl:gap-12 2xl:gap-16">
               {moreProducts.map((item) => (
                 <div
                   key={item._id}
