@@ -71,7 +71,7 @@ export async function createOrder(req, res) {
   }
 }
 
-// Creates a Razorpay payment order. The secret key stays on the server.
+
 export async function createRazorpayOrder(req, res) {
   try {
     const keyId = process.env.RAZORPAY_KEY_ID;
