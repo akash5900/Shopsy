@@ -226,14 +226,14 @@ export default function ProductDetail() {
 
   return (
     <div className="min-h-screen bg-gray-50 pt-3 sm:pt-6">
-      <div className="px-3 md:px-4 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-8 lg:gap-10 rounded-2xl bg-white p-3 shadow-sm  sm:p-6 md:p-8 2xl:p-10">
+      <div className="px-3 md:px-4 2xl:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-8 lg:gap-10 rounded-2xl bg-white p-3 shadow-sm sm:p-6 md:p-4 xl:p-6 2xl:p-10">
           <div className="flex min-w-0 flex-col gap-3 rounded-xl bg-gray-50 p-3 sm:p-6">
             <div className="flex min-h-[260px] items-center justify-center overflow-hidden rounded-lg bg-white md:min-h-[300px] lg:min-h-[450px]">
               <img
                 src={activeImage || product.image}
                 alt={product.name}
-                className="h-[260px] w-full max-w-lg cursor-zoom-in rounded-lg object-contain transition duration-300 hover:scale-110 md:h-[300px] lg:h-[450px]"
+                className="h-[260px] w-full max-w-lg cursor-zoom-in rounded-lg object-contain transition duration-300 hover:scale-110 md:h-[300px] xl:h-[350px] 2xl:h-[450px]"
               />
             </div>
             {galleryImages.length > 1 && (

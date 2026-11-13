@@ -90,8 +90,8 @@ export default function Header() {
 
   return (
     <header className="pt-2">
-      <div className="shadow-xs border rounded-2xl border-gray-200 mx-2 md:mx-4 2xl:mx-6 ">
-        <div className="px-2 pb-2 md:px-4 md:py-2 lg:px-8 lg:py-4 flex flex-wrap items-center justify-between gap-1 md:gap-2 lg:gap-4 ">
+      <div className="shadow-xs border rounded-2xl border-gray-200 mx-2 md:mx-4  2xl:mx-6 ">
+        <div className="px-2 pb-2 md:px-4 md:py-2 xl:px-6 xl:py-3 2xl:px-8 2xl:py-4 flex flex-wrap items-center justify-between gap-1 md:gap-2 lg:gap-4 ">
           <Link to="/" className="flex items-center gap-0.5 md:gap-2 shrink-0">
             <SiShopify className="text-gray-900 text-sm md:text-2xl lg:text-3xl" />
             <h1 className="text-sm md:text-xl lg:text-2xl text-gray-900 font-bold">Shopsy</h1>
