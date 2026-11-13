@@ -11,7 +11,9 @@ export default function Banner() {
       <div className="flex overflow-hidden rounded-2xl bg-[#f8f2e8] md:min-h-[300px] lg:min-h-[400px] md:gap-4 2xl:gap-10 ">
         <div className="flex flex-col gap-2 md:gap-1 lg:gap-4 p-3 md:px-5 lg:py-8 md:w-1/2 md:py-4 lg:px-8 2xl:ml-[10px]">
           <div className="flex items-center gap-2 text-xl font-semibold text-slate-900">
-            <h1 className="text-[7px] md:text-xl lg:text-2xl font-bold text-gray-700">Hello {user?.username || "Guest"}</h1>
+            <h1 className="text-[7px] md:text-xl lg:text-2xl font-bold text-gray-700">
+              Hello {user?.username || "Guest"}
+            </h1>
           </div>
 
           <div className="flex flex-wrap items-center gap-2 text-[6px] md:text-[9px] lg:text-sm font-medium md:tracking-widest text-slate-600">
@@ -40,7 +42,10 @@ export default function Banner() {
               className="inline-flex items-center gap-1 md:gap-3 rounded-full bg-blue-600 px-1 py-1 md:px-4 md:py-2 lg:px-7 lg:py-3 text-xs md:text-lg lg:text-xl md:font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
               Shop Now
-              <span aria-hidden="true" className="text-xs md:text-lg lg:text-xl">
+              <span
+                aria-hidden="true"
+                className="text-xs md:text-lg lg:text-xl"
+              >
                 →
               </span>
             </Link>
