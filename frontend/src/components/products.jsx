@@ -147,9 +147,8 @@ function Products() {
                 className="relative w-full min-w-0 md:w-[230px] lg:w-[270px] xl:w-[280px] 2xl:w-[300px] border border-gray-200 flex flex-col gap-2 hover:bg-gray-100 hover:shadow-xl transition px-2 pt-2 pb-1 md:px-4 md:pt-4 md:pb-2 cursor-pointer"
                 key={product._id}
                 onClick={() => {
-                  console.log("Product card clicked");
                   navigate(`/productdetail/${product._id}`);
-                  window.scrollTo(0, 0);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
               >
                 <button
@@ -162,10 +161,7 @@ function Products() {
                   onClick={(event) => {
                     event.preventDefault();
                     event.stopPropagation();
-
-                    console.log("Heart clicked - before");
                     toggleWishlist(product._id);
-                    console.log("Heart clicked - after");
                   }}
                   className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-md transition hover:scale-110"
                 >
