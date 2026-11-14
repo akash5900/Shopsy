@@ -23,7 +23,6 @@ export default function Header() {
     setSearch(searchParams.get("search") || "");
   }, [searchParams]);
 
-
   useEffect(() => {
     const timer = setTimeout(() => {
       const params = new URLSearchParams(searchParams);
@@ -37,7 +36,6 @@ export default function Header() {
       if (params.toString() !== searchParams.toString()) {
         setSearchParams(params, { replace: true });
       }
-
     }, 600);
 
     return () => clearTimeout(timer);
@@ -61,7 +59,7 @@ export default function Header() {
         });
 
         const res = await fetch(
-          `http://localhost:3000/api/products/allproducts?${params.toString()}`
+          `http://localhost:3000/api/products/allproducts?${params.toString()}`,
         );
 
         const data = await res.json();
@@ -94,7 +92,9 @@ export default function Header() {
         <div className="px-2 pb-2 md:px-4 md:py-2 xl:px-6 xl:py-3 2xl:px-8 2xl:py-4 flex flex-wrap items-center justify-between gap-1 md:gap-2 lg:gap-4 ">
           <Link to="/" className="flex items-center gap-0.5 md:gap-2 shrink-0">
             <SiShopify className="text-gray-900 text-sm md:text-2xl lg:text-3xl" />
-            <h1 className="text-sm md:text-xl lg:text-2xl text-gray-900 font-bold">Shopsy</h1>
+            <h1 className="text-sm md:text-xl lg:text-2xl text-gray-900 font-bold">
+              Shopsy
+            </h1>
           </Link>
 
           <div className="relative order-3 md:order-none w-full md:flex-1 w-[100px] md:max-w-[500px] md:mx-6">
@@ -107,7 +107,10 @@ export default function Header() {
               type="text"
               placeholder="Search Product..."
               value={search}
-              onChange={(e) => { setSearch(e.target.value); setShowSuggestions(true); }}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setShowSuggestions(true);
+              }}
               onFocus={() => {
                 if (search.trim()) setShowSuggestions(true);
               }}
@@ -159,11 +162,15 @@ export default function Header() {
           <nav className="flex items-center gap-1 md:gap-4 lg:gap-5 text-gray-900">
             <Link
               to="/cart"
-              onClick={window.scroll(0, 0)}
+              onClick={() => window.scrollTo(0, 0)}
               className="flex items-center gap-1 hover:text-blue-600 mr-1"
             >
               <IoMdCart className="mt-1 text-sm md:text-2xl" />
-              {totalItems !== 0 ? (<span className="text-blue-800">{totalItems}</span>) : (<span></span>)}
+              {totalItems !== 0 ? (
+                <span className="text-blue-800">{totalItems}</span>
+              ) : (
+                <span></span>
+              )}
             </Link>
 
             <Link
@@ -174,13 +181,15 @@ export default function Header() {
             >
               <FaHeart className="mt-1 text-sm md:text-xl" />
               {wishlistCount > 0 && (
-                <span className="text-blue-800 text-xs md:text-sm">{wishlistCount}</span>
+                <span className="text-blue-800 text-xs md:text-sm">
+                  {wishlistCount}
+                </span>
               )}
             </Link>
 
             <Link
               to="/orders"
-              onClick={window.scroll(0, 0)}
+              onClick={() => window.scrollTo(0, 0)}
               className="flex items-center gap-1 hover:text-green-600"
             >
               <IoBagHandle className="text-sm md:text-2xl mt-0.5 " />
@@ -190,7 +199,7 @@ export default function Header() {
               (user ? (
                 <Link
                   to="/profile"
-                  onClick={window.scroll(0, 0)}
+                  onClick={() => window.scrollTo(0, 0)}
                   className="flex items-center gap-1 md:gap-2 rounded-lg px-3 py-2 hover:text-orange-600 "
                 >
                   <BsPersonCircle className="text-sm md:text-2xl mt-1 md:mt-1" />
@@ -213,6 +222,6 @@ export default function Header() {
           <Category />
         </div>
       </div>
-    </header >
+    </header>
   );
 }
