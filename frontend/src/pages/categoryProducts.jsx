@@ -115,7 +115,10 @@ function Categoryproducts() {
             <div
               className="relative w-full min-w-0 md:w-[230px] lg:w-[270px] xl:w-[280px] 2xl:w-[300px] cursor-pointer border border-gray-200 flex flex-col gap-2 hover:bg-gray-100 hover:shadow-xl p-2 md:p-4"
               key={product._id}
-              onClick={() => navigate(`/productdetail/${product._id}`)}
+              onClick={() => {
+                navigate(`/productdetail/${product._id}`);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
             >
               <button
                 type="button"
