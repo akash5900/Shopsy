@@ -97,9 +97,34 @@ export default function Dashboard() {
         getorders();
     }, []);
 
+    const getPaymentStatusColor = (status) => {
+        switch (status) {
+            case "Paid":
+                return "bg-green-100 text-green-700";
+            case "Cancelled":
+                return "bg-red-100 text-red-700";
+            default:
+                return "bg-yellow-100 text-yellow-700";
+        }
+    };
+
+    const getOrderStatusColor = (status) => {
+        switch (status) {
+            case "Placed":
+                return "bg-yellow-100 text-yellow-700";
+            case "Shipped":
+                return "bg-blue-100 text-blue-700";
+            case "Delivered":
+                return "bg-green-100 text-green-700";
+            case "Cancelled":
+                return "bg-red-100 text-red-700";
+            default:
+                return "bg-gray-100 text-gray-700";
+        }
+    };
+
     return (
         <div className="min-h-screen bg-slate-50">
-            {/* Dashboard Header */}
             <div className="mb-6 sm:mb-8 flex flex-wrap items-center justify-between gap-4">
                 <div>
                     <h1 className="text-xl sm:text-2xl font-bold text-slate-800">
@@ -118,7 +143,6 @@ export default function Dashboard() {
                 </div>
             </div>
 
-            {/* Statistics Cards */}
             <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
 
                 <div
@@ -198,7 +222,6 @@ export default function Dashboard() {
                 </div>
             </div>
 
-            {/* Recent Products and Store Overview */}
             <div className="mb-8 grid grid-cols-1 gap-5 xl:grid-cols-3">
 
                 <div className="rounded-xl border border-slate-100 bg-white p-4 sm:p-5 shadow-sm xl:col-span-2 md:p-6">
@@ -258,7 +281,6 @@ export default function Dashboard() {
                     )}
                 </div>
 
-                {/* Store Overview */}
                 <div className="rounded-xl border border-slate-100 bg-white p-4 sm:p-5 shadow-sm md:p-6">
                     <h2 className="text-lg font-bold text-slate-800">
                         Store Overview
@@ -324,7 +346,6 @@ export default function Dashboard() {
                 </div>
             </div>
 
-            {/* Recent Orders */}
             <div className="overflow-hidden rounded-xl border border-slate-100 bg-white shadow-sm">
                 <div className="flex flex-wrap items-center justify-between gap-3 p-4 sm:p-5 md:p-6">
                     <div>
@@ -343,42 +364,72 @@ export default function Dashboard() {
 
                 {allorders?.length > 0 ? (
                     <div className="overflow-x-auto">
-                        <table className="w-full min-w-[600px] text-left">
+
+                        <table className="w-full min-w-[750px] text-left">
                             <thead className="bg-slate-50 text-xs uppercase text-gray-700">
                                 <tr>
-                                    <th className="px-4 sm:px-6 py-4 font-semibold">Order ID</th>
-                                    <th className="px-4 sm:px-6 py-4 font-semibold">Customer</th>
-                                    <th className="px-4 sm:px-6 py-4 font-semibold">Amount</th>
-                                    <th className="px-4 sm:px-6 py-4 font-semibold">Status</th>
+                                    <th className="px-4 sm:px-6 py-4 font-semibold">
+                                        Order ID
+                                    </th>
+                                    <th className="px-4 sm:px-6 py-4 font-semibold">
+                                        Customer
+                                    </th>
+                                    <th className="px-4 sm:px-6 py-4 font-semibold">
+                                        Amount
+                                    </th>
+                                    <th className="px-4 sm:px-6 py-4 font-semibold">
+                                        Payment Status
+                                    </th>
+                                    <th className="px-4 sm:px-6 py-4 font-semibold">
+                                        Order Status
+                                    </th>
                                 </tr>
                             </thead>
 
                             <tbody className="divide-y divide-slate-100">
-                                {allorders.slice(-5).reverse().map((order, index) => (
+                                {allorders.slice(-5).reverse().map((order) => (
                                     <tr
-                                        key={order._id || index}
+                                        key={order._id}
                                         className="transition hover:bg-slate-50"
                                     >
                                         <td className="px-4 sm:px-6 py-4 text-sm font-semibold text-slate-700">
-                                            #{order._id || index + 1}
+                                            #{order._id}
                                         </td>
+
                                         <td className="px-4 sm:px-6 py-4 text-sm text-slate-600">
-                                            {order.user?.username || "Customer"}
+                                            {order.user?.username ||
+                                                order.address?.username ||
+                                                "Customer"}
                                         </td>
+
                                         <td className="px-4 sm:px-6 py-4 text-sm font-semibold text-slate-800">
-                                            ₹{Number(
-                                                order.totalamount ?? 0
-                                            ).toLocaleString("en-IN")}
+                                            ₹{Number(order.totalamount ?? 0).toLocaleString("en-IN")}
                                         </td>
+
+                                        {/* Payment Status */}
                                         <td className="px-4 sm:px-6 py-4">
-                                            <span className="inline-flex rounded-full bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-700">
-                                                {order.status || "Pending"}
+                                            <span
+                                                className={`inline-flex rounded-full px-3 py-1.5 text-xs font-semibold ${getPaymentStatusColor(order.paymentstatus)
+                                                    }`}
+                                            >
+                                                {order.paymentstatus || "Pending"}
+                                            </span>
+                                        </td>
+
+                                        {/* Order Status */}
+                                        <td className="px-4 sm:px-6 py-4">
+                                            <span
+                                                className={`inline-flex rounded-full px-3 py-1.5 text-xs font-semibold ${getOrderStatusColor(order.orderStatus)
+                                                    }`}
+                                            >
+                                                {order.orderStatus || "Placed"}
                                             </span>
                                         </td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
+
                     </div>
                 ) : (
                     <div className="px-6 py-12 text-center text-sm text-slate-500">
