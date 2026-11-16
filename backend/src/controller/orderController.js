@@ -9,11 +9,14 @@ async function prepareOrderProducts(items) {
   }
 
   const prepared = [];
+
   for (const item of items) {
     const product = await productModel.findById(item.product);
+
     if (!product) throw new Error("One of the selected products is unavailable");
 
     const quantity = Number(item.quantity);
+
     if (!Number.isInteger(quantity) || quantity < 1) throw new Error("Invalid product quantity");
 
     let variantSnapshot = undefined;
@@ -22,10 +25,15 @@ async function prepareOrderProducts(items) {
 
     if (item.variant?._id || item.variant) {
       const variantId = item.variant?._id || item.variant;
+
       const variant = product.variants.id(variantId);
+
       if (!variant) throw new Error(`Selected variant for ${product.name} is unavailable`);
+
       if (variant.stock < quantity) throw new Error(`Only ${variant.stock} item(s) left for ${product.name}`);
+
       price = Number(variant.price);
+      
       variantSnapshot = {
         _id: variant._id,
         size: variant.size,
