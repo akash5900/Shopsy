@@ -89,9 +89,9 @@ export default function Header() {
   return (
     <header className="pt-2">
       <div className="shadow-xs border rounded-2xl border-gray-200 mx-2 md:mx-4  2xl:mx-6 ">
-        <div className="px-2 pb-2 md:px-4 md:py-2 xl:px-6 xl:py-3 2xl:px-8 2xl:py-4 flex flex-wrap items-center justify-between gap-1 md:gap-2 lg:gap-4 ">
-          <Link to="/" className="flex items-center gap-0.5 md:gap-2 shrink-0">
-            <SiShopify className="text-gray-900 text-sm md:text-lg xl:text-xl 2xl:text-3xl" />
+        <div className="px-2 pb-2 md:px-4 md:py-2 xl:px-6 xl:py-3 2xl:px-8 2xl:py-4 flex flex-wrap items-center justify-between gap-2 md:gap-2 lg:gap-4 ">
+          <Link to="/" className="flex items-center gap-1 md:gap-2 shrink-0">
+            <SiShopify className="text-gray-900 text-sm md:text-lg xl:text-xl 2xl:text-2xl" />
             <h1 className="text-sm md:text-lg xl:text-2xl 2xl:text-2xl text-gray-900 font-bold">
               Shopsy
             </h1>
@@ -159,11 +159,11 @@ export default function Header() {
             )}
           </div>
 
-          <nav className="flex items-center gap-1 md:gap-4 lg:gap-5 text-gray-900">
+          <nav className="flex items-center gap-2 md:gap-4 lg:gap-5 text-gray-900">
             <Link
               to="/cart"
               onClick={() => window.scrollTo(0, 0)}
-              className="flex items-center gap-1 hover:text-blue-600 mr-1"
+              className="flex items-center gap-1 hover:text-blue-600 md:mr-1"
             >
               <IoMdCart className="mt-1 text-sm md:text-2xl" />
               {totalItems !== 0 ? (
@@ -177,7 +177,7 @@ export default function Header() {
               to="/wishlist"
               onClick={() => window.scrollTo(0, 0)}
               aria-label="Wishlist"
-              className="relative flex items-center gap-1 hover:text-red-500 mr-1"
+              className="relative flex items-center gap-1 hover:text-red-500 md:mr-1"
             >
               <FaHeart className="mt-1 text-sm md:text-xl" />
               {wishlistCount > 0 && (

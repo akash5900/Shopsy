@@ -34,7 +34,7 @@ export default function Dashboard() {
     async function getProducts() {
         try {
             const res = await fetch(
-                "http://localhost:3000/api/products/getproducts",
+                "http://localhost:3000/api/products/allproducts",
             );
 
             const data = await res.json();

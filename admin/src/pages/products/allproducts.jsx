@@ -19,7 +19,7 @@ export default function Allproducts() {
       setLoading(true);
 
       const res = await fetch(
-        `http://localhost:3000/api/products/allproducts?page=${pageNumber}&limit=12`,
+        `http://localhost:3000/api/products/getproducts?page=${pageNumber}&limit=12`,
       );
 
       const data = await res.json();

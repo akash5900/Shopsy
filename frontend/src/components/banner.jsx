@@ -73,11 +73,11 @@ export default function Banner() {
           </div>
         </div>
 
-        <div className="flex w-full items-center justify-center md:w-1/2 md:self-stretch md:px-2 md:pr-0 md:pb-0 ">
+        <div className="flex w-full items-stretch justify-center md:w-1/2 md:self-stretch md:px-2 md:pr-0 md:pb-0 ">
           <img
             src="/images/shopsy-products.png"
             alt="Fashion accessories, sneakers, headphones and electronics"
-            className="w-full h-auto lg:max-h-[430px] object-contain 2xl:ml-[250px]"
+            className="w-auto md:w-full h-auto lg:max-h-[430px] object-cover 2xl:ml-[250px]"
           />
         </div>
       </div>
