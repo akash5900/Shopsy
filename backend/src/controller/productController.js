@@ -50,7 +50,12 @@ export async function createProduct(req, res) {
     }
 
     const parsedImages = Array.isArray(images) ? images : [];
-    const galleryImages = [...new Set([image.trim(), ...parsedImages.map((url) => String(url).trim()).filter(Boolean)])];
+    const galleryImages = [
+      ...new Set([
+        image.trim(),
+        ...parsedImages.map((url) => String(url).trim()).filter(Boolean),
+      ]),
+    ];
 
     const variants = req.body.variants || "[]";
 
@@ -240,6 +245,7 @@ export async function getProductsByCategory(req, res) {
     const products = await productModel
       .find(query)
       .populate("category")
+      .sort({ _id: -1 })
       .skip(skip)
       .limit(limitNumber);
 
@@ -265,8 +271,16 @@ export async function updateProduct(req, res) {
   try {
     const { id } = req.params;
 
-    const { name, price, description, category, image, images = [], ratings, variants } =
-      req.body;
+    const {
+      name,
+      price,
+      description,
+      category,
+      image,
+      images = [],
+      ratings,
+      variants,
+    } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: "Invalid product ID" });
@@ -320,7 +334,14 @@ export async function updateProduct(req, res) {
       description: description.trim(),
       category,
       image: image.trim(),
-      images: [...new Set([image.trim(), ...(Array.isArray(images) ? images : []).map((url) => String(url).trim()).filter(Boolean)])],
+      images: [
+        ...new Set([
+          image.trim(),
+          ...(Array.isArray(images) ? images : [])
+            .map((url) => String(url).trim())
+            .filter(Boolean),
+        ]),
+      ],
     };
 
     if (ratings !== undefined) {
@@ -348,9 +369,9 @@ export async function updateProduct(req, res) {
 
         return existingVariant
           ? {
-            ...variant,
-            _id: existingVariant._id,
-          }
+              ...variant,
+              _id: existingVariant._id,
+            }
           : variant;
       });
     }
