@@ -141,15 +141,17 @@ export async function userLogin(req, res) {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
+      path: "/",
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    console.log(process.env.NODE_ENV);
+    const safeUser = user.toObject();
+    delete safeUser.password;
 
     return res.status(200).json({
       statuscode: "200",
       message: "User Login Successfully",
-      user,
+      user: safeUser,
     });
   } catch (error) {
     console.log(error);
@@ -301,8 +303,9 @@ export async function adminLogin(req, res) {
 
     res.cookie("AdminToken", token, {
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
+      path: "/",
       maxAge: 24 * 60 * 60 * 1000,
     });
 
@@ -322,7 +325,7 @@ export async function adminLogin(req, res) {
 
 export async function allUsers(req, res) {
   try {
-    const users = await userModel.find();
+    const users = await userModel.find().select("-password");
 
     return res.status(200).json({
       statuscode: "200",
@@ -337,7 +340,6 @@ export async function allUsers(req, res) {
     });
   }
 }
-
 
 export async function editUser(req, res) {
   try {
@@ -355,10 +357,7 @@ export async function editUser(req, res) {
     const updateData = {};
 
     if (username !== undefined) {
-      if (
-        typeof username !== "string" ||
-        !username.trim()
-      ) {
+      if (typeof username !== "string" || !username.trim()) {
         return res.status(400).json({
           message: "Name cannot be empty",
         });
@@ -437,14 +436,16 @@ export async function editUser(req, res) {
       });
     }
 
-    const updatedUser = await userModel.findByIdAndUpdate(
-      userId,
-      { $set: updateData },
-      {
-        new: true,
-        runValidators: true,
-      }
-    ).select("-password");
+    const updatedUser = await userModel
+      .findByIdAndUpdate(
+        userId,
+        { $set: updateData },
+        {
+          new: true,
+          runValidators: true,
+        },
+      )
+      .select("-password");
 
     if (!updatedUser) {
       return res.status(404).json({
@@ -513,6 +514,7 @@ export async function userLogout(req, res) {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
+      path: "/",
     });
 
     return res.status(200).json({

@@ -8,29 +8,32 @@ import {
   getProfie,
   userLogout,
   adminLogout,
-  editUser
+  editUser,
 } from "../controller/userController.js";
+
 import AdminAuthMiddleware from "../middlewares/adminMiddleware.js";
 import Authmiddleware from "../middlewares/authMiddleware.js";
 import express from "express";
 
 const router = express.Router();
 
-router.get("/allusers", allUsers);
-
-router.get("/profile", Authmiddleware, getProfie);
-
-router.post("/login", userLogin);
-
+// Public routes
 router.post("/signup", userSignup);
-
-router.post("/adminsignup", adminSignup);
-
-router.post("/adminlogin", adminLogin);
-
+router.post("/login", userLogin);
 router.post("/logout", userLogout);
 
+// Protected user routes
+router.get("/profile", Authmiddleware, getProfie);
+router.patch("/profile/edit", Authmiddleware, editUser);
+
+// Admin authentication
+router.post("/adminlogin", adminLogin);
 router.post("/adminlogout", adminLogout);
+
+// Protected admin routes
+router.post("/adminsignup", AdminAuthMiddleware, adminSignup);
+router.get("/allusers", AdminAuthMiddleware, allUsers);
+router.delete("/:id", AdminAuthMiddleware, deleteUser);
 
 router.get("/admin/me", AdminAuthMiddleware, (req, res) => {
   return res.status(200).json({
@@ -38,9 +41,5 @@ router.get("/admin/me", AdminAuthMiddleware, (req, res) => {
     user: req.user,
   });
 });
-
-router.patch("/profile/edit", Authmiddleware, editUser);
-
-router.delete("/:id", deleteUser);
 
 export default router;
