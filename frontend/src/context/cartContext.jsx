@@ -8,7 +8,7 @@ export function CartProvider({ children }) {
 
   async function handleRemove(id) {
     try {
-      const res = await fetch(`http://localhost:3000/api/cart/${id}`, {
+      const res = await fetch(`/api/cart/${id}`, {
         method: "DELETE",
       });
 
@@ -24,7 +24,7 @@ export function CartProvider({ children }) {
 
   async function getCart() {
     try {
-      const res = await fetch("http://localhost:3000/api/cart/usercart", {
+      const res = await fetch("/api/cart/usercart", {
         method: "GET",
         credentials: "include",
       });

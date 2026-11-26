@@ -74,7 +74,7 @@ function Products() {
       params.append("limit", 15);
 
       const res = await fetch(
-        `http://localhost:3000/api/products/getproducts?${params.toString()}`,
+        `/api/products/getproducts?${params.toString()}`,
       );
 
       const data = await res.json();

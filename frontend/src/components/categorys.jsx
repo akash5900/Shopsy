@@ -7,7 +7,7 @@ export default function Category() {
 
   async function getCategory() {
     try {
-      const res = await fetch("http://localhost:3000/api/category/allcategory");
+      const res = await fetch("/api/category/allcategory");
 
       const data = await res.json();
 

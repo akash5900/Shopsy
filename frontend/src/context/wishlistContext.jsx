@@ -17,7 +17,7 @@ export function WishlistProvider({ children }) {
 
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:3000/api/wishlist", {
+      const res = await fetch("/api/wishlist", {
         method: "GET",
         credentials: "include",
       });
@@ -48,7 +48,7 @@ export function WishlistProvider({ children }) {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/api/wishlist/add", {
+      const res = await fetch("/api/wishlist/add", {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -73,7 +73,7 @@ export function WishlistProvider({ children }) {
   async function removeFromWishlist(productId) {
     try {
       const res = await fetch(
-        `http://localhost:3000/api/wishlist/${productId}`,
+        `/api/wishlist/${productId}`,
         {
           method: "DELETE",
           credentials: "include",

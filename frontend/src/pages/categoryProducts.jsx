@@ -115,7 +115,7 @@ function Categoryproducts() {
         }
 
         const res = await fetch(
-          `http://localhost:3000/api/products/category?${params.toString()}`,
+          `/api/products/category?${params.toString()}`,
           { signal: controller.signal },
         );
 

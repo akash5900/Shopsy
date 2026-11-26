@@ -21,7 +21,7 @@ export default function ProductDetail() {
 
   async function getProduct() {
     try {
-      const res = await fetch(`http://localhost:3000/api/products/${id}`);
+      const res = await fetch(`/api/products/${id}`);
 
       const data = await res.json();
 
@@ -72,7 +72,7 @@ export default function ProductDetail() {
   async function getMoreProducts() {
     try {
       const res = await fetch(
-        "http://localhost:3000/api/products/allproducts?page=1&limit=30",
+        "/api/products/allproducts?page=1&limit=30",
       );
 
       const data = await res.json();
@@ -195,7 +195,7 @@ export default function ProductDetail() {
         )
         : null;
 
-      const res = await fetch("http://localhost:3000/api/cart/add", {
+      const res = await fetch("/api/cart/add", {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },

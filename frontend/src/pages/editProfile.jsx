@@ -31,7 +31,7 @@ export default function EditProfile() {
     setSaving(true);
 
     try {
-      const res = await fetch("http://localhost:3000/api/user/profile/edit", {
+      const res = await fetch("/api/user/profile/edit", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

@@ -59,7 +59,7 @@ export default function Checkout() {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/api/address/create", {
+      const res = await fetch("/api/address/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -94,7 +94,7 @@ export default function Checkout() {
 
   async function deleteAddress(id) {
     try {
-      const res = await fetch(`http://localhost:3000/api/address/${id}`, {
+      const res = await fetch(`/api/address/${id}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -119,7 +119,7 @@ export default function Checkout() {
   async function getAddresses() {
     try {
       const res = await fetch(
-        "http://localhost:3000/api/address/useraddresses",
+        "/api/address/useraddresses",
         {
           credentials: "include",
         },
@@ -167,7 +167,7 @@ export default function Checkout() {
         selectedImage: item.selectedImage || item.variant?.image || item.image || item.product?.image || "",
       }));
 
-      const res = await fetch("http://localhost:3000/api/order/create", {
+      const res = await fetch("/api/order/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -241,7 +241,7 @@ export default function Checkout() {
       });
       if (!scriptLoaded) throw new Error("Unable to load Razorpay Checkout. Please check your internet connection.");
 
-      const orderRes = await fetch("http://localhost:3000/api/order/razorpay/create", {
+      const orderRes = await fetch("/api/order/razorpay/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -264,7 +264,7 @@ export default function Checkout() {
         theme: { color: "#f97316" },
         handler: async (response) => {
           try {
-            const verifyRes = await fetch("http://localhost:3000/api/order/razorpay/verify", {
+            const verifyRes = await fetch("/api/order/razorpay/verify", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               credentials: "include",

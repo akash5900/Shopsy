@@ -59,7 +59,7 @@ export default function Header() {
         });
 
         const res = await fetch(
-          `http://localhost:3000/api/products/allproducts?${params.toString()}`,
+          `/api/products/allproducts?${params.toString()}`,
         );
 
         const data = await res.json();

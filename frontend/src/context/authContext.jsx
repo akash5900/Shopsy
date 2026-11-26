@@ -8,7 +8,7 @@ export function AuthProvider({ children }) {
 
   async function logout() {
     try {
-      const res = await fetch("http://localhost:3000/api/user/logout", {
+      const res = await fetch("/api/user/logout", {
         method: "POST",
         credentials: "include",
       });
@@ -24,7 +24,7 @@ export function AuthProvider({ children }) {
 
   async function fetchUser() {
     try {
-      const res = await fetch("http://localhost:3000/api/user/profile", {
+      const res = await fetch("/api/user/profile", {
         credentials: "include",
       });
 

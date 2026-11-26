@@ -10,7 +10,7 @@ export default function Order() {
 
   async function getOrder() {
     try {
-      const res = await fetch(`http://localhost:3000/api/order/userorder`, {
+      const res = await fetch(`/api/order/userorder`, {
         credentials: "include",
       });
 
@@ -32,7 +32,7 @@ export default function Order() {
   async function handleDelete(orderId, productId) {
     try {
       const res = await fetch(
-        `http://localhost:3000/api/order/${orderId}/product/${productId}`,
+        `/api/order/${orderId}/product/${productId}`,
         {
           method: "DELETE",
         },
@@ -56,7 +56,7 @@ export default function Order() {
   async function cancelOrder(orderId, productId) {
     try {
       const res = await fetch(
-        `http://localhost:3000/api/order/${orderId}/cancel/${productId}`,
+        `/api/order/${orderId}/cancel/${productId}`,
         {
           method: "PUT",
           credentials: "include",
