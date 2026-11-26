@@ -32,7 +32,7 @@ export default function Banner() {
               </span>
             </h2>
 
-            <p className="max-w-lg text-[8px] md:text-sm lg:text-base md:leading-6 text-slate-600">
+            <p className="max-w-lg text-[8px] md:text-sm lg:text-base md:leading-6 text-slate-600  hidden md:block lg:block">
               Trendy fashion, latest gadgets, home essentials and more. Shop
               smarter, live better.
             </p>
