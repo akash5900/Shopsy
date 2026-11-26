@@ -16,7 +16,7 @@ function Updatecategory() {
     useEffect(() => {
         async function getCategory() {
             try {
-                const res = await fetch(`http://localhost:3000/api/category/${id}`);
+                const res = await fetch(`/api/category/${id}`);
                 const data = await res.json();
                 setFormdata({
                     name: data.category.name,
@@ -34,7 +34,7 @@ function Updatecategory() {
     async function handleSubmit(e) {
         e.preventDefault();
         try {
-            const res = await fetch(`http://localhost:3000/api/category/${id}`, {
+            const res = await fetch(`/api/category/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formdata)

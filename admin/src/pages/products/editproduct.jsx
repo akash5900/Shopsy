@@ -29,7 +29,7 @@ function Updateproduct() {
   async function getCategory() {
     try {
       const res = await fetch(
-        "http://localhost:3000/api/category/allcategory"
+        "/api/category/allcategory"
       );
 
       const data = await res.json();
@@ -48,7 +48,7 @@ function Updateproduct() {
   async function getProduct() {
     try {
       const res = await fetch(
-        `http://localhost:3000/api/products/${id}`
+        `/api/products/${id}`
       );
 
       const data = await res.json();
@@ -114,7 +114,7 @@ function Updateproduct() {
 
     try {
       const res = await fetch(
-        `http://localhost:3000/api/products/${id}`,
+        `/api/products/${id}`,
         {
           method: "PUT",
           headers: {

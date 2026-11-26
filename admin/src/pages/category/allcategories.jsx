@@ -7,7 +7,7 @@ export default function Allcategories() {
 
     async function getCategory() {
         try {
-            const res = await fetch("http://localhost:3000/api/category/allcategory");
+            const res = await fetch("/api/category/allcategory");
             const data = await res.json();
             setCategory(data.categorys);
         } catch (error) {
@@ -21,7 +21,7 @@ export default function Allcategories() {
 
     async function handleDelete(id) {
         try {
-            const res = await fetch(`http://localhost:3000/api/category/${id}`, {
+            const res = await fetch(`/api/category/${id}`, {
                 method: "DELETE",
             });
 

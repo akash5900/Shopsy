@@ -7,7 +7,7 @@ export function AuthProvider({ children }) {
 
     async function getUsers() {
         try {
-            const res = await fetch("http://localhost:3000/api/user/allusers");
+            const res = await fetch("/api/user/allusers");
 
             const data = await res.json();
 
@@ -27,7 +27,7 @@ export function AuthProvider({ children }) {
 
     async function deleteUser(id) {
         try {
-            const res = await fetch(`http://localhost:3000/api/user/${id}`, {
+            const res = await fetch(`/api/user/${id}`, {
                 method: "DELETE",
             });
 

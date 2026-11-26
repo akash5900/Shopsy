@@ -18,7 +18,7 @@ export default function Dashboard() {
 
     async function getAllUsers() {
         try {
-            const res = await fetch("http://localhost:3000/api/user/allusers");
+            const res = await fetch("/api/user/allusers");
             const data = await res.json();
 
             if (!res.ok) {
@@ -34,7 +34,7 @@ export default function Dashboard() {
     async function getProducts() {
         try {
             const res = await fetch(
-                "http://localhost:3000/api/products/allproducts",
+                "/api/products/allproducts",
             );
 
             const data = await res.json();
@@ -52,7 +52,7 @@ export default function Dashboard() {
     async function getorders() {
         try {
             const res = await fetch(
-                "http://localhost:3000/api/order/allorders",
+                "/api/order/allorders",
                 {
                     method: "GET",
                     credentials: "include",
@@ -75,7 +75,7 @@ export default function Dashboard() {
     async function getAllCategory() {
         try {
             const res = await fetch(
-                "http://localhost:3000/api/category/allcategory",
+                "/api/category/allcategory",
             );
 
             const data = await res.json();

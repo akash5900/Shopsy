@@ -19,7 +19,7 @@ export default function Allproducts() {
       setLoading(true);
 
       const res = await fetch(
-        `http://localhost:3000/api/products/getproducts?page=${pageNumber}&limit=12`,
+        `/api/products/getproducts?page=${pageNumber}&limit=12`,
       );
 
       const data = await res.json();
@@ -41,7 +41,7 @@ export default function Allproducts() {
 
   async function dltProduct(id) {
     try {
-      const res = await fetch(`http://localhost:3000/api/products/${id}`, {
+      const res = await fetch(`/api/products/${id}`, {
         method: "DELETE",
       });
 

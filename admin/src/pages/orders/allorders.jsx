@@ -6,7 +6,7 @@ export default function Allorders() {
 
   async function getorders() {
     try {
-      const res = await fetch("http://localhost:3000/api/order/allorders", {
+      const res = await fetch("/api/order/allorders", {
         method: "GET",
         credentials: "include",
       });
@@ -32,7 +32,7 @@ export default function Allorders() {
 
   async function updateStatus(id, status) {
     try {
-      const res = await fetch(`http://localhost:3000/api/order/status/${id}`, {
+      const res = await fetch(`/api/order/status/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

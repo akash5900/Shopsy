@@ -27,7 +27,7 @@ function Addproducts() {
 
   async function getCategory() {
     try {
-      const res = await fetch("http://localhost:3000/api/category/allcategory");
+      const res = await fetch("/api/category/allcategory");
       const data = await res.json();
       setCategory(data.categorys);
     } catch (error) {
@@ -62,7 +62,7 @@ function Addproducts() {
 
     try {
       const res = await fetch(
-        "http://localhost:3000/api/products/createproduct",
+        "/api/products/createproduct",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

@@ -14,7 +14,7 @@ function Addcategory() {
         e.preventDefault();
 
         try {
-            const res = await fetch("http://localhost:3000/api/category/create", {
+            const res = await fetch("/api/category/create", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formdata),

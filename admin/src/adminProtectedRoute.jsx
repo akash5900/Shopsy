@@ -7,7 +7,7 @@ export default function AdminProtectedRoute({ children }) {
     useEffect(() => {
         async function checkAdmin() {
             try {
-                const res = await fetch("http://localhost:3000/api/user/admin/me", {
+                const res = await fetch("/api/user/admin/me", {
                     credentials: "include",
                 });
 

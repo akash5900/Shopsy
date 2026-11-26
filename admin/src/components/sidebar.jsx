@@ -16,7 +16,7 @@ export default function Sidebar() {
 
     async function handleLogout() {
         try {
-            const res = await fetch("http://localhost:3000/api/user/adminlogout", {
+            const res = await fetch("/api/user/adminlogout", {
                 method: "POST",
                 credentials: "include",
             });
