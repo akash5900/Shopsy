@@ -203,7 +203,7 @@ export default function Header() {
                   className="flex items-center gap-1 md:gap-2 rounded-lg px-3 py-2 hover:text-orange-600 "
                 >
                   <BsPersonCircle className="text-sm md:text-2xl mt-1 md:mt-1" />
-                  <span className="font-semibold text-sm mt-1">
+                  <span className="font-semibold text-sm mt-1 hidden md:block">
                     {user.username}
                   </span>
                 </Link>
