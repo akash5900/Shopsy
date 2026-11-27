@@ -432,7 +432,7 @@ export default function ProductDetail() {
               </h2>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 lg:gap-x-17 lg:gap-y-10 xl:gap-12 2xl:gap-16">
+            <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 md:gap-4 lg:gap-x-17 lg:gap-y-10 xl:gap-12 2xl:gap-16">
               {moreProducts.map((item) => (
                 <div
                   key={item._id}
@@ -440,7 +440,7 @@ export default function ProductDetail() {
                     navigate(`/productdetail/${item._id}`);
                     window.scrollTo(0, 0);
                   }}
-                  className="flex min-w-0 cursor-pointer flex-col gap-2 border border-gray-200 px-2 pb-2 pt-3 hover:bg-gray-100 hover:shadow-xl sm:px-4 sm:pt-4 md:w-[230px] lg:w-[270px] 2xl:w-[300px]"
+                  className="flex min-w-0 cursor-pointer flex-col gap-2 border border-gray-200 px-2 pb-2 pt-3 hover:bg-gray-100 hover:shadow-xl sm:px-4 sm:pt-4 md:w-full lg:w-[270px] 2xl:w-[300px]"
                 >
                   <div className="flex justify-center">
                     <img
