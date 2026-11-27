@@ -8,7 +8,7 @@ import ProductsFilters from "../components/productsFilters";
 
 function ProductSkeleton() {
   return (
-    <div className="w-full md:w-[270px] 2xl:w-[300px] border border-gray-200 flex flex-col gap-2 p-2 md:p-4">
+    <div className="w-full md:w-full lg:w-[250px] 2xl:w-[300px] border border-gray-200 flex flex-col gap-2 p-2 md:p-4">
       <div className="flex justify-center">
         <div className="w-full h-[110px] sm:h-[130px] md:h-[150px] 2xl:h-[180px] rounded bg-gray-200 shimmer" />
       </div>
@@ -114,10 +114,9 @@ function Categoryproducts() {
           params.set("maxPrice", maxPrice);
         }
 
-        const res = await fetch(
-          `/api/products/category?${params.toString()}`,
-          { signal: controller.signal },
-        );
+        const res = await fetch(`/api/products/category?${params.toString()}`, {
+          signal: controller.signal,
+        });
 
         const data = await res.json();
 
@@ -212,21 +211,18 @@ function Categoryproducts() {
         </button>
       </div>
 
-      <div className="px-3 md:px-4 2xl:px-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 md:gap-6 lg:gap-x-17 lg:gap-y-10 xl:gap-12 2xl:gap-18">
+      <div className="px-3 md:px-4 2xl:px-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 md:gap-4 lg:gap-x-17 lg:gap-y-10 xl:gap-12 2xl:gap-18">
         {loading && visibleProducts.length === 0
           ? Array.from({ length: 15 }).map((_, index) => (
               <ProductSkeleton key={index} />
             ))
           : visibleProducts.map((product) => (
               <div
-                className="relative w-full min-w-0 md:w-[230px] lg:w-[270px] xl:w-[280px] 2xl:w-[300px] cursor-pointer border border-gray-200 flex flex-col gap-2 hover:bg-gray-100 hover:shadow-xl p-2 md:p-4"
+                className="relative w-full min-w-0 md:w-full lg:w-[270px] xl:w-[280px] 2xl:w-[300px] border border-gray-200 flex flex-col gap-2 hover:bg-gray-100 hover:shadow-xl transition px-2 pt-2 pb-1 md:px-4 md:pt-4 md:pb-2 cursor-pointer"
                 key={product._id}
                 onClick={() => {
                   navigate(`/productdetail/${product._id}`);
-                  window.scrollTo({
-                    top: 0,
-                    behavior: "smooth",
-                  });
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
               >
                 <button
@@ -237,6 +233,7 @@ function Categoryproducts() {
                       : "Add to wishlist"
                   }
                   onClick={(event) => {
+                    event.preventDefault();
                     event.stopPropagation();
                     toggleWishlist(product._id);
                   }}
@@ -250,47 +247,50 @@ function Categoryproducts() {
                     }
                   />
                 </button>
-
                 <div className="flex justify-center">
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="h-[110px] sm:h-[130px] md:h-[150px] 2xl:h-[210px] w-full object-contain rounded"
+                    className="h-[110px] sm:h-[130px] md:h-[150px] 2xl:h-[200px] w-full object-contain rounded"
                   />
                 </div>
 
-                <section className="flex flex-col gap-2 text-gray-700 min-w-0">
+                <section className="flex flex-col gap-2 text-gray-700">
                   <div className="flex justify-between gap-1">
-                    <h2 className="text-xs sm:text-sm md:text-md 2xl:text-[15px] font-semibold min-w-0">
+                    <h1 className="text-[9px] md:text-[14px] 2xl:text-[15px] font-semibold min-w-0">
                       {product.name}
-                    </h2>
+                    </h1>
 
                     <div className="flex items-center shrink-0">
-                      <BiRupee className="text-xs sm:text-sm md:text-base" />
+                      <BiRupee className="text-[9px] md:text-[14px] 2xl:text-[15px]" />
 
-                      <h3 className="text-xs sm:text-sm md:text-md 2xl:text-md font-semibold text-gray-800">
+                      <h2 className="text-[9px] md:text-[14px] 2xl:text-[15px] font-semibold text-gray-800">
                         {product.price}
-                      </h3>
+                      </h2>
                     </div>
                   </div>
 
-                  <p className="text-[10px] sm:text-xs md:text-md truncate mb-1">
+                  <p className="text-[10px] sm:text-xs md:text-[13px] 2xl:text-[14px] truncate mb-1">
                     {product.description}
                   </p>
 
                   <div className="flex items-center justify-between gap-1">
                     <div className="flex items-center gap-1">
-                      <FaStar size={12} color="orange" />
-                      <p className="text-xs md:text-[15px] font-bold">
+                      <FaStar
+                        color="orange"
+                        className="text-[9px] md:text-sm"
+                      />
+                      <p className="text-[9px] md:text-[15px] font-bold">
                         {product.ratings}
                       </p>
                     </div>
 
                     <div className="flex items-center gap-1">
                       <FaArrowRotateLeft size={11} />
-                      <p className="text-[9px] sm:text-[11px] md:text-[13px] whitespace-nowrap">
+
+                      <h1 className="text-[9px] md:text-[13px] whitespace-nowrap">
                         30-day returns
-                      </p>
+                      </h1>
                     </div>
                   </div>
                 </section>
