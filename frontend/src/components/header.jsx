@@ -89,7 +89,7 @@ export default function Header() {
   return (
     <header className="pt-2">
       <div className="shadow-xs border rounded-2xl border-gray-200 mx-2 md:mx-4  2xl:mx-6 ">
-        <div className="px-2 pb-2 md:px-4 md:py-2 xl:px-6 xl:py-3 2xl:px-8 2xl:py-4 flex flex-wrap items-center justify-between gap-2 md:gap-2 lg:gap-4 ">
+        <div className="px-2 pb-2 max-md:pt-2 md:px-4 md:py-2 xl:px-6 xl:py-3 2xl:px-8 2xl:py-4 flex flex-wrap items-center justify-between gap-2 md:gap-2 lg:gap-4 ">
           <Link to="/" className="flex items-center gap-1 md:gap-2 shrink-0">
             <SiShopify className="text-gray-900 text-sm md:text-lg xl:text-xl 2xl:text-2xl" />
             <h1 className="text-sm md:text-lg xl:text-2xl 2xl:text-2xl text-gray-900 font-bold">
@@ -159,50 +159,60 @@ export default function Header() {
             )}
           </div>
 
-          <nav className="flex items-center gap-2 md:gap-4 lg:gap-5 text-gray-900">
+          <nav className="flex items-center gap-2 max-md:gap-1 md:gap-4 lg:gap-5 text-gray-900">
+            {/* Cart */}
             <Link
               to="/cart"
               onClick={() => window.scrollTo(0, 0)}
-              className="flex items-center gap-1 hover:text-blue-600 md:mr-1"
+              aria-label="Cart"
+              className="flex items-center gap-1 max-md:relative max-md:w-8 max-md:h-8 max-md:justify-center hover:text-blue-600 md:mr-1"
             >
-              <IoMdCart className="mt-1 text-sm md:text-2xl" />
-              {totalItems !== 0 ? (
-                <span className="text-blue-800">{totalItems}</span>
-              ) : (
-                <span></span>
+              <IoMdCart className="mt-1 max-md:mt-0 max-md:text-lg text-sm md:text-2xl" />
+
+              {totalItems !== 0 && (
+                <span className="text-blue-800 max-md:absolute max-md:-top-1 max-md:-right-1 max-md:bg-blue-600 max-md:text-white max-md:text-[9px] max-md:min-w-3.5 max-md:h-3.5 max-md:px-0.5 max-md:rounded-full max-md:flex max-md:items-center max-md:justify-center">
+                  {totalItems}
+                </span>
               )}
             </Link>
 
+            {/* Wishlist */}
             <Link
               to="/wishlist"
               onClick={() => window.scrollTo(0, 0)}
               aria-label="Wishlist"
-              className="relative flex items-center gap-1 hover:text-red-500 md:mr-1"
+              className="relative flex items-center gap-1 max-md:w-8 max-md:h-8 max-md:justify-center hover:text-red-500 md:mr-1"
             >
-              <FaHeart className="mt-1 text-sm md:text-xl" />
+              <FaHeart className="mt-1 max-md:mt-0 max-md:text-lg text-sm md:text-xl" />
+
               {wishlistCount > 0 && (
-                <span className="text-blue-800 text-xs md:text-sm">
+                <span className="text-blue-800 text-xs md:text-sm max-md:absolute max-md:-top-1 max-md:-right-1 max-md:bg-blue-600 max-md:text-white max-md:text-[9px] max-md:min-w-3.5 max-md:h-3.5 max-md:px-0.5 max-md:rounded-full max-md:flex max-md:items-center max-md:justify-center">
                   {wishlistCount}
                 </span>
               )}
             </Link>
 
+            {/* Orders */}
             <Link
               to="/orders"
               onClick={() => window.scrollTo(0, 0)}
-              className="flex items-center gap-1 hover:text-green-600"
+              aria-label="Orders"
+              className="flex items-center gap-1 max-md:w-8 max-md:h-8 max-md:justify-center hover:text-green-600"
             >
-              <IoBagHandle className="text-sm md:text-2xl mt-0.5 " />
+              <IoBagHandle className="text-sm max-md:text-lg md:text-2xl mt-0.5 max-md:mt-0" />
             </Link>
 
+            {/* Profile / Login */}
             {!loading &&
               (user ? (
                 <Link
                   to="/profile"
                   onClick={() => window.scrollTo(0, 0)}
-                  className="flex items-center gap-1 md:gap-2 rounded-lg px-3 py-2 hover:text-orange-600 "
+                  aria-label="Profile"
+                  className="flex items-center gap-1 md:gap-2 rounded-lg px-3 py-2 max-md:p-0 max-md:w-8 max-md:h-8 max-md:justify-center hover:text-orange-600"
                 >
-                  <BsPersonCircle className="text-sm md:text-2xl mt-1 md:mt-1" />
+                  <BsPersonCircle className="text-sm max-md:text-lg md:text-2xl mt-1 max-md:mt-0 md:mt-1" />
+
                   <span className="font-semibold text-sm mt-1 hidden md:block">
                     {user.username}
                   </span>
@@ -210,10 +220,14 @@ export default function Header() {
               ) : (
                 <Link
                   to="/login"
-                  className="flex items-center gap-2 rounded-lg px-3 py-2 hover:text-red-500 mt-1"
+                  aria-label="Login"
+                  className="flex items-center gap-2 rounded-lg px-3 py-2 max-md:p-0 max-md:w-8 max-md:h-8 max-md:justify-center hover:text-red-500 mt-1 max-md:mt-0"
                 >
-                  <BsPersonCircle className="text-sm md:text-2xl" />
-                  <span className="font-semibold text-sm">Login</span>
+                  <BsPersonCircle className="text-sm max-md:text-lg md:text-2xl" />
+
+                  <span className="font-semibold text-sm hidden md:block">
+                    Login
+                  </span>
                 </Link>
               ))}
           </nav>
